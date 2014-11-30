@@ -25,16 +25,15 @@ vector<vector<char> > rotate(vector<vector<char> >  pattern) {
     return tmp;
 }
 
-vector<vector<char> > reflect_vertically(vector<vector<char> > pattern) {
+vector<vector<char> > reflect(vector<vector<char> > pattern) {
     int n = pattern.size();
-    int k = n / 2;
+    int k = n % 2 == 0 ? n / 2 : (n / 2) + 1;
     vector<vector<char> > tmp(n, vector<char>(n));
 
     for (int i = 0; i < n; ++i)
         for (int j = 0; j < k; ++j) {
-            char store = tmp[i][j];
-            tmp[i][j] = tmp[i][n-j];
-            tmp[i][n-j] = store;
+            tmp[i][j] = pattern[i][n-j-1];
+            tmp[i][n-j-1] = pattern[i][j];
         }
 
     return tmp;
@@ -73,37 +72,23 @@ int main() {
     }
     fclose(in);
 
-    // Test and master equal by default
-    if (equal(test, master)) {
-        ret = 6;
-    }
-
-    // Test for equality during inital rotations
+    // Test for equality during inital rotations (or reflections of rotations)
     for (int i = 1; i < 4; ++i) {
         test = rotate(test);
         if (equal(test, master)) {
             ret = i;
             break;
         }
-    }
-
-    if (ret > 5) {
-        // Test for equality with reflections
-        test = reflect_vertically(rotate(test));
-        if (equal(test, master)) {
+        else if (equal(reflect(test), master))
             ret = 5;
-        }
-        else {
-            for (int i = 0; i < 3; ++i) {
-                test = rotate(test);
-
-                if (equal(test, master)) {
-                    ret = 6;
-                    break;
-                }
-            }
-        }
     }
+
+    // Test and master equal by default
+    test = rotate(test);
+    if (ret > 4 && equal(reflect(test), master))
+        ret = 4;
+    else if (ret > 6 && equal(test, master))
+        ret = 6;
 
     fprintf(out, "%d\n", ret);
     fclose(out);
