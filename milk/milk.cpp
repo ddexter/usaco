@@ -20,7 +20,8 @@ int main() {
     unsigned long long totalCost = 0;
 
     fscanf(in, "%d %d", &demand, &nFarmers);
-    vector<pair<int, int> > suppliers(nFarmers);
+    vector<pair<int, int> > suppliers;
+    suppliers.reserve(nFarmers);
 
     for (int i = 0; i < nFarmers; ++i) {
         int cost, supply;
