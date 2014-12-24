@@ -13,7 +13,6 @@ using namespace std;
 
 void decToBase(int n, int base, char* buffer)
 {
-    bool p = n < 16;
     int i;
     for(i = 0; n > 0; ++i) {
         int r = n % base;
