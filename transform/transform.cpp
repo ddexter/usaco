@@ -14,7 +14,7 @@ const int NMAX = 10;
 
 vector<vector<char> > rotate(vector<vector<char> >  pattern) {
     int n = pattern.size();
-    vector<vector<char> > tmp(n, vector<char>(n));
+    vector<vector<char> > tmp(n, vector<char>());
 
     for (int i = 0; i < n; ++i)
         for (int j = 0; j < n; ++j) {
@@ -28,7 +28,7 @@ vector<vector<char> > rotate(vector<vector<char> >  pattern) {
 vector<vector<char> > reflect(vector<vector<char> > pattern) {
     int n = pattern.size();
     int k = n % 2 == 0 ? n / 2 : (n / 2) + 1;
-    vector<vector<char> > tmp(n, vector<char>(n));
+    vector<vector<char> > tmp(n, vector<char>());
 
     for (int i = 0; i < n; ++i)
         for (int j = 0; j < k; ++j) {
@@ -56,8 +56,8 @@ int main() {
 
     fscanf(in, "%d", &n);
 
-    vector<vector<char> > test(n, vector<char>(n));
-    vector<vector<char> > master(n, vector<char>(n));
+    vector<vector<char> > test(n, vector<char>());
+    vector<vector<char> > master(n, vector<char>());
 
     char tmp[NMAX];
     for (int i = 0; i < n; ++i) {
